@@ -1,0 +1,38 @@
+<% include partials/header1 %>
+
+<h2><%= data.lastName %>, <%= data.firstName %></h2>
+
+<table class="table">
+  <tr>
+    <td><b>Email</b></td><td><a href="mailto:<%= data.email %>"><%= data.email %></a></td>   
+    </tr>  
+  <tr>
+    <td><b>Address</b></td><td><%= data.address %></td>
+  </tr>
+  <tr>
+    <td><b>City</b></td><td><%= data.city %></td>
+  </tr>
+  <tr>
+    <td><b>State</b></td><td><%= data.state %></td>
+  </tr>
+  <tr>
+    <td><b>Job</b></td><td><%= data.job %></td>
+  </tr> 
+  <tr>
+    <td><b>SSN</b></td><td><%= data.ssn %></td>
+  </tr>   
+  <tr>
+    <td><b>Phone</b></td><td><%= data.cNumber %></td>
+  </tr>
+  <tr>
+    <td><b>Salary (year)</b></td><td>$<%= data.salary %></td>    
+  </tr>
+</table>
+
+<p><a href="/employees/<%= data._id %>/edit">Edit</a> | Delete</p>
+
+<form action="/employees/<%= data._id %>?_method=DELETE" method="POST" class="confirm-delete">
+	<button class="btn btn-danger">Delete - Yes, I'm sure</button>
+</form>
+
+<% include partials/footer %>

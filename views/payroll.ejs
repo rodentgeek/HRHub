@@ -1,0 +1,26 @@
+<% include partials/header3 %>
+
+<h2>Payroll</h2>
+
+<p><a href="/payroll_report">Generate Report</a> | Change tax rate(s)</p>
+
+<form>
+  <table class="table">
+
+  <%
+  data.forEach(function(val){
+  %>
+  
+    <tr>
+      <td><%= val.label %> tax</td>
+      <td><%= val.rate %>%</td>
+    </tr>
+  
+  <%
+  });
+  %>
+
+  </table>
+</form>
+
+<% include partials/footer %>

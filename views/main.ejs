@@ -1,0 +1,64 @@
+<% include partials/header1 %>
+
+<script>
+  
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http.get("/ajax")
+  .then(function(response) {
+    var employees = response.data;
+
+     $scope.employees = employees;
+
+    // Sorting functions...
+
+    $scope.sortDir = false;
+    $scope.sortField = "lastName";
+
+    $scope.reSort = function(field){
+      if(field != $scope.sortField){
+        $scope.sortDir = false;
+        $scope.sortField = field;
+      } else {
+        $scope.sortDir = !$scope.sortDir;
+      }
+    };
+    
+  });
+});
+
+</script>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+  
+  <p><b>Filter:</b> <input ng-model="filterLastName.lastName" id="filterTextBox"> (Last Name)</p>
+  
+  <p><b>Field headers in blue are clickable to sort</b> (please wait a few seconds after clicking to see result)</p>
+  
+	<table class="table table-striped">
+		<tr>
+			<th><a ng-click="reSort('lastName')">Last Name</a></th>
+			<th><a ng-click="reSort('firstName')">First Name</a></th>
+			<th>City</th>
+			<th><a ng-click="reSort('state')">State</a></th>
+			<th>Job Title</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th></th>
+		</tr>
+
+  	<tr ng-repeat="x in employees | filter: filterLastName | orderBy: sortField : sortDir">
+			<td ng-bind="x.lastName"></td>
+			<td ng-bind="x.firstName"></td>
+			<td ng-bind="x.city"></td>
+			<td ng-bind="x.state"></td>
+			<td ng-bind="x.job"></td>
+			<td><a href="mailto:{{x.email}}">{{x.email}}</a></td>
+			<td ng-bind="x.cNumber"></td>
+			<td><a href="/employees/{{x._id}}">Details/Edit</a></td>
+		</tr>
+	</table>
+
+</div>
+
+<% include partials/footer %>

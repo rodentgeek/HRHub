@@ -1,0 +1,66 @@
+<% include partials/header3 %>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Last Name</th>
+			<th>First Name</th>
+			<th>State</th>
+			<th>Gross Pay</th>
+			<th>Fed tax</th>
+			<th>SS tax</th>
+			<th>Medicare tax</th>
+			<th>State tax</th>
+			<th>Net Pay</th>
+		</tr>
+		
+<%
+
+ function getTaxRate(code, arr){
+  var theIndex;
+  arr.forEach(function(val, i){
+    if(code == val.type) theIndex = i;
+  });   
+  return arr[theIndex].rate;
+ }
+
+  employees.forEach(function(val){
+    
+    var grossPay = (val.salary)/24; // paid twice monthly
+    
+    var fedTaxRate = getTaxRate("FD", taxes);
+    var ssTaxRate = getTaxRate("SS", taxes);
+    var medTaxRate = getTaxRate("MR", taxes);
+    
+    var stateCode = val.state;
+    var stateTaxRate = getTaxRate(stateCode, taxes);
+  
+    var fedTax = grossPay * (fedTaxRate/100);
+    var ssTax = grossPay * (ssTaxRate/100);
+    var medTax = grossPay * (medTaxRate/100);
+    var stateTax = grossPay * (stateTaxRate/100);
+    
+    var netPay = grossPay - fedTax - ssTax - medTax - stateTax;
+
+%>
+
+  	<tr>
+			<td><%= val.lastName %></td>
+			<td><%= val.firstName %></td>
+			<td><%= val.state %></td>
+			<td>$<%= grossPay.toFixed(2) %> <a href="/employees/<%= val._id %>/edit">Edit</a></td>
+			<td>($<%= fedTax.toFixed(2) %>) @ <%= fedTaxRate.toFixed(2) %>%</td>
+			<td>($<%= ssTax.toFixed(2) %>) @ <%= ssTaxRate.toFixed(2) %>%</td>
+			<td>($<%= medTax.toFixed(2) %>) @ <%= medTaxRate.toFixed(2) %>%</td>
+			<td>($<%= stateTax.toFixed(2) %>) @ <%= stateTaxRate.toFixed(2) %>%</td>
+			<td>$<%= netPay.toFixed(2) %></td>
+		</tr>
+		
+<%
+  });
+%>
+	
+	</table>
+
+</div>
+
+<% include partials/footer %>
