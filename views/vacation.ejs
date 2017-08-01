@@ -1,0 +1,61 @@
+<% include partials/header %>
+
+<%
+stateArr = ["Nationwide", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NM", "NJ", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+
+var filterStr = "", totalAllot = 0, totalUsed = 0;
+
+stateArr.forEach(function(val){
+	var qStr = val;
+	if(val == "Nationwide") qStr = "";
+	filterStr += "<a href='/vacation?q=" + qStr + "'>" + val + "</a> ";
+});
+%>
+
+<p><b>Filter:</b> <%- filterStr %></p>
+
+<p>
+	<b>Total allotted:</b> <span id="allotted"></span><br>
+	<b>Total used:</b> <span id="used"></span><br>
+	<b>Total left:</b> <span id="left"></span>
+</p>
+
+<table class="table table-striped">
+	<tr>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>State</th>
+		<th>Days alloted</th>
+		<th>Days used</th>
+		<th>Days left</th>
+		<th> </th>
+	</tr>
+	
+<%
+  data.forEach(function(val){
+  	totalAllot += val.vacayallot;
+  	totalUsed += val.vacayused;
+%>
+  	<tr>
+			<td><%= val.lastName %></td>
+			<td><%= val.firstName %></td>
+			<td><%= val.state %></td>
+			<td><%= val.vacayallot %></td>
+			<td><%= val.vacayused %></td>
+			<td><%= (val.vacayallot - val.vacayused) %></td>
+			<td><a href="/employees/<%= val._id %>/edit?highlight=vacayallot">Edit</a></td>
+		</tr>
+		
+<%
+  });
+%>
+	
+</table>
+
+<% include partials/footer %>
+
+<script>
+	document.querySelector("#allotted").innerHTML = "<%= totalAllot %> days";
+	document.querySelector("#used").innerHTML = "<%= totalUsed %> days (<%= ((totalUsed/totalAllot)*100).toFixed(0) %>%)";
+	document.querySelector("#left").innerHTML = "<%= (totalAllot - totalUsed) %> days";
+</script>

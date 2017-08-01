@@ -9,3 +9,39 @@
 .form-horizontal {
   margin: 0 auto;
 }
+
+.navbar-brand {
+  font-family: 'Mada', sans-serif;
+  font-size: 230%;
+  color: #fffed3 !important;
+}
+
+.navbar-default {
+  background-color: #48527a;
+}
+
+.navbar {
+	min-height: 80px !important;
+}
+
+.actioncol {
+  white-space: nowrap !important;
+}
+
+#theMsg {
+  font-weight: bold;
+  color: red;
+  font-size: 120%;
+}
+
+.confirm-delete {
+  display: none;
+}
+
+.taxtable input {
+    width: 50px !important;
+}
+
+body {
+  font-family: "Verdana";
+}

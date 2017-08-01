@@ -1,135 +1,25 @@
-<% include partials/header1 %>
+<% include partials/header %>
 
-<h2>Edit</h2>
+<h3>Edit <%= data.firstName%> <%= data.lastName %></h3>
 
-<form class="form-horizontal" action="/employees/<%= data._id %>?_method=PUT" method="POST">
-    
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="firstName">First Name:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="employee[firstName]" id="firstName" value="<%= data.firstName %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="lastName">Last Name:</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" name="employee[lastName]" id="lastName" value="<%= data.lastName %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Email:</label>
-    <div class="col-sm-10"> 
-      <input type="email" class="form-control"name="employee[email]" id="email" value="<%= data.email %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="address">Address:</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" name="employee[address]" id="address" placeholder="Street number and street name only" value="<%= data.address %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="city">City State:</label>
-    <div class="col-sm-7"> 
-      <input type="text" class="form-control" name="employee[city]" id="city" value="<%= data.city %>">
-    </div>
-    <div class="col-sm-3"> 
-       <select class="form-control" name="employee[state]" id="state">
-        <option value="<%= data.state %>"><%= data.state %></option>
-      	<option value="AK">AK</option>
-      	<option value="AL">AL</option>
-      	<option value="AR">AR</option>
-      	<option value="AZ">AZ</option>
-       	<option value="CA">CA</option>
-      	<option value="CO">CO</option>
-      	<option value="CT">CT</option>
-      	<option value="DC">DC</option>
-      	<option value="DE">DE</option>
-      	<option value="FL">FL</option>
-      	<option value="GA">GA</option>
-      	<option value="HI">HI</option>
-      	<option value="IA">IA</option>
-      	<option value="ID">ID</option>
-      	<option value="IL">IL</option>
-      	<option value="IN">IN</option>
-      	<option value="KS">KS</option>
-      	<option value="KY">KY</option>
-      	<option value="LA">LA</option>
-      	<option value="MA">MA</option>
-      	<option value="MD">MD</option>
-      	<option value="ME">ME</option>
-      	<option value="MI">MI</option>
-      	<option value="MN">MN</option>
-      	<option value="MO">MO</option>
-      	<option value="MS">MS</option>
-      	<option value="MT">MT</option>
-      	<option value="NC">NC</option>
-      	<option value="ND">ND</option>
-      	<option value="NE">NE</option>
-      	<option value="NH">NH</option>
-      	<option value="NM">NM</option>
-      	<option value="NJ">NJ</option>
-      	<option value="NV">NV</option>
-      	<option value="NY">NY</option>
-      	<option value="OH">OH</option>
-      	<option value="OK">OK</option>
-      	<option value="OR">OR</option>
-      	<option value="PA">PA</option>
-      	<option value="RI">RI</option>
-      	<option value="SC">SC</option>
-      	<option value="SD">SD</option>
-      	<option value="TN">TN</option>
-      	<option value="TX">TX</option>
-      	<option value="UT">UT</option>
-      	<option value="VA">VA</option>
-      	<option value="VT">VT</option>
-      	<option value="WA">WA</option>
-      	<option value="WI">WI</option>
-      	<option value="WV">WV</option>
-      	<option value="WY">WY</option>
-      </select>
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="job">Job Title:</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" name="employee[job]" id="job" value="<%= data.job %>">
-    </div>
-  </div>
-  
-    <div class="form-group">
-    <label class="control-label col-sm-2" for="job">SSN:</label>
-    <div class="col-sm-10"> 
-      <input type="text" class="form-control" name="employee[ssn]" id="ssn" value="<%= data.ssn %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="job">Phone:</label>
-    <div class="col-sm-10"> 
-      <input type="number" class="form-control" name="employee[cNumber]" id="cNumber" value="<%= data.cNumber %>">
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="job">Salary:</label>
-    <div class="col-sm-10"> 
-      <input type="number" class="form-control" name="employee[salary]" id="salary" value="<%= data.salary %>">
-    </div>
-  </div>  
-
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="button"></label>
-    <div class="col-sm-10"> 
-      <button class="btn btn-primary form-control">Submit</button>
-    </div>
-  </div>  
-
+<form class="form-horizontal" action="/employees/<%= data._id %>?_method=PUT" method="POST" id="theForm">
+  <% include partials/form_employee %>   
 </form>
 
+<script type="text/javascript" src="/scripts/formvalidate_main.js"></script>
+
 <% include partials/footer %>
+
+<% include partials/populateform %>
+
+<%
+  if(queryStr){
+%>
+
+  <script>
+    document.querySelector("#<%= queryStr %>").select();
+  </script>
+
+<%
+  }
+%>

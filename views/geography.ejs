@@ -1,0 +1,36 @@
+<% include partials/header %>
+
+<%
+
+var stateAbbrArr = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NM", "NJ", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+
+var stateNameArr = ["Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Washington DC", "Delaware", "Flordia", "Georgia", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Montana", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Mexico", "New Jersey", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"];
+
+stateAbbrArr.forEach(function(val, index){
+  
+  var headCount = 0, totalSalary = 0, employees = "";
+  
+  data.forEach(function(val2){
+    if(val2.state == stateAbbrArr[index]){
+      headCount++;
+      totalSalary += val2.salary;
+      employees += "<a href='employees/" + val2._id + "'>" + val2.firstName + " " + val2.lastName + "</a>, ";
+    }    
+  });
+
+  var avgSalary = totalSalary/headCount;
+  employees = employees.slice(0,employees.length-2);
+  
+%>
+
+<p><h3><%= stateNameArr[index] %></h3>
+<b>Head count</b>: <%= headCount %><br>
+<b>Total salary:</b> $<%= totalSalary %> (average $<%= avgSalary.toFixed(2) %> per employee)<br>
+<b>Employee(s):</b> <%- employees %>
+</p>
+
+<%
+});
+%>
+
+<% include partials/footer %>

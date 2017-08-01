@@ -3,5 +3,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script>
+
+  var x = window.location.href;
+  
+  if(x.search("/employees/new") > 0){
+    document.querySelector("#newemployees").classList.add("active");
+  } else if(x.search("/employees") > 0){
+    document.querySelector("#records").classList.add("active");      
+  } else if(x.search("/payroll") > 0){
+     document.querySelector("#payroll").classList.add("active");  
+  } else if(x.search("/vacation") > 0){
+     document.querySelector("#vacation").classList.add("active");  
+  } else {
+     document.querySelector("#geography").classList.add("active");    
+  }
+  
+</script>
+  
 </body>
 </html>

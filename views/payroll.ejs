@@ -1,8 +1,8 @@
-<% include partials/header3 %>
+<% include partials/header %>
 
-<h2>Payroll</h2>
+<p><a href="/payroll_report" class="btn btn-info">Generate Report</a></p>
 
-<p><a href="/payroll_report">Generate Report</a> | Change tax rate(s)</p>
+<h3>Tax Table</h3>
 
 <form>
   <table class="table">
@@ -14,6 +14,7 @@
     <tr>
       <td><%= val.label %> tax</td>
       <td><%= val.rate %>%</td>
+      <td><a href="/payroll_tax/<%= val._id %>/edit">Change</a></td>
     </tr>
   
   <%

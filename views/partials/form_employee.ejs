@@ -1,0 +1,94 @@
+<% 
+
+var stateFormStr = "", stateArr = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NM", "NJ", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"];
+
+stateArr.forEach(function(val){
+  stateFormStr += "<option value='" + val + "'>" + val + "</option>";
+});
+
+%>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="firstName">First Name:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="employee[firstName]" id="firstName">
+    </div>
+    <label class="control-label col-sm-2" for="lastName">Last Name:</label>
+    <div class="col-sm-4"> 
+      <input type="text" class="form-control" name="employee[lastName]" id="lastName">
+    </div>
+  </div>
+  
+
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">Email:</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="employee[email]" id="email">
+    </div>
+    <label class="control-label col-sm-2" for="cNumber">Phone:</label>
+    <div class="col-sm-4"> 
+      <input type="text" class="form-control" name="employee[cNumber]" id="cNumber" placeholder="Digits only without hyphens">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="address">Address:</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="employee[address]" id="address" placeholder="Street number and street name only">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="city">City:</label>
+    <div class="col-sm-6"> 
+      <input type="text" class="form-control" name="employee[city]" id="city">
+    </div>
+    <label class="control-label col-sm-1" for="state">State:</label>
+    <div class="col-sm-3"> 
+      <select class="form-control" name="employee[state]" id="state">
+        <%- stateFormStr %>
+      </select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="job">Job Title:</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="employee[job]" id="job">
+    </div>
+  </div>
+  
+    <div class="form-group">
+    <label class="control-label col-sm-2" for="ssn">SSN:</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="employee[ssn]" id="ssn" placeholder = "XXX-XX-XXXX format only (with hyphens)">
+    </div>
+  </div>
+  
+   <div class="form-group">
+    <label class="control-label col-sm-2" for="salary">Salary (yr):</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="employee[salary]" id="salary" placeholder = "Digits only without commas or currency signs">
+    </div>
+  </div>  
+    
+  <div class="form-group">
+    <label class="control-label col-sm-4" for="vacayallot">Vacation days allotted (per yr):</label>
+    <div class="col-sm-2"> 
+      <input type="text" class="form-control" name="employee[vacayallot]" id="vacayallot">
+    </div>
+    <label class="control-label col-sm-4" for="vacayused">Vacation days used:</label>
+    <div class="col-sm-2"> 
+      <input type="text" class="form-control" name="employee[vacayused]" id="vacayused">
+    </div>
+  </div>
+  
+  <p id="theMsg"></p>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="button"></label>
+    <div class="col-sm-10"> 
+      <input type="button" value="Submit" class="btn btn-primary form-control" id="submitbutton" />
+    </div>
+  </div>

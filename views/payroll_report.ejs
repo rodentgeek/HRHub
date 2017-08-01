@@ -1,18 +1,47 @@
-<% include partials/header3 %>
+<% include partials/header %>
 
-	<table class="table table-striped">
+<table class="table table-striped">
+	<tr>
+		<th>Type</th>
+		<th>Amount (company-wide)</th>
+	</tr>
+	<tr>
+		<td>Gross Pay</td>
+		<td id="GP"></td>
+	</tr>
+	<tr>
+		<td>Federal tax</td>
+		<td id="FD"></td>
+	</tr>
 		<tr>
-			<th>Last Name</th>
-			<th>First Name</th>
-			<th>State</th>
-			<th>Gross Pay</th>
-			<th>Fed tax</th>
-			<th>SS tax</th>
-			<th>Medicare tax</th>
-			<th>State tax</th>
-			<th>Net Pay</th>
-		</tr>
-		
+		<td>Social Security tax</td>
+		<td id="SS"></td>
+	</tr>
+		<tr>
+		<td>Medicare tax</td>
+		<td id="MR"></td>
+	</tr>
+		<tr>
+		<td>State tax</td>
+		<td id="State"></td>
+	</tr>
+</table>	
+	
+<p><b>Gross pay is twice-monthly (annual salary / 24)</b></p>	
+	
+<table class="table table-striped">
+	<tr>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>State</th>
+		<th>Gross Pay</th>
+		<th>Fed tax</th>
+		<th>SS tax</th>
+		<th>Medicare tax</th>
+		<th>State tax</th>
+		<th>Net Pay</th>
+	</tr>
+	
 <%
 
  function getTaxRate(code, arr){
@@ -22,6 +51,8 @@
   });   
   return arr[theIndex].rate;
  }
+ 
+	var totalSalary = 0, totalFD = 0, totalSS = 0, totalMR = 0, totalState = 0;
 
   employees.forEach(function(val){
     
@@ -30,7 +61,6 @@
     var fedTaxRate = getTaxRate("FD", taxes);
     var ssTaxRate = getTaxRate("SS", taxes);
     var medTaxRate = getTaxRate("MR", taxes);
-    
     var stateCode = val.state;
     var stateTaxRate = getTaxRate(stateCode, taxes);
   
@@ -38,6 +68,12 @@
     var ssTax = grossPay * (ssTaxRate/100);
     var medTax = grossPay * (medTaxRate/100);
     var stateTax = grossPay * (stateTaxRate/100);
+    
+    totalSalary += grossPay;
+    totalFD += fedTax;
+    totalSS += ssTax;
+    totalMR += medTax;
+    totalState += stateTax;
     
     var netPay = grossPay - fedTax - ssTax - medTax - stateTax;
 
@@ -47,7 +83,7 @@
 			<td><%= val.lastName %></td>
 			<td><%= val.firstName %></td>
 			<td><%= val.state %></td>
-			<td>$<%= grossPay.toFixed(2) %> <a href="/employees/<%= val._id %>/edit">Edit</a></td>
+			<td>$<%= grossPay.toFixed(2) %> <a href="/employees/<%= val._id %>/edit?highlight=salary">Edit</a></td>
 			<td>($<%= fedTax.toFixed(2) %>) @ <%= fedTaxRate.toFixed(2) %>%</td>
 			<td>($<%= ssTax.toFixed(2) %>) @ <%= ssTaxRate.toFixed(2) %>%</td>
 			<td>($<%= medTax.toFixed(2) %>) @ <%= medTaxRate.toFixed(2) %>%</td>
@@ -62,5 +98,13 @@
 	</table>
 
 </div>
+
+<script>
+	document.querySelector("#GP").innerHTML = "$" + (<%= totalSalary %>).toFixed(2);
+	document.querySelector("#FD").innerHTML = "$" + (<%= totalFD %>).toFixed(2);
+	document.querySelector("#SS").innerHTML = "$" + (<%= totalSS %>).toFixed(2);
+	document.querySelector("#MR").innerHTML = "$" + (<%= totalMR %>).toFixed(2);
+	document.querySelector("#State").innerHTML = "$" + (<%= totalState %>).toFixed(2);
+</script>
 
 <% include partials/footer %>

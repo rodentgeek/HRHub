@@ -1,6 +1,6 @@
-<% include partials/header1 %>
+<% include partials/header %>
 
-<h2><%= data.lastName %>, <%= data.firstName %></h2>
+<h3><%= data.firstName %> <%= data.lastName %></h3>
 
 <table class="table">
   <tr>
@@ -16,7 +16,7 @@
     <td><b>State</b></td><td><%= data.state %></td>
   </tr>
   <tr>
-    <td><b>Job</b></td><td><%= data.job %></td>
+    <td><b>Job Title</b></td><td><%= data.job %></td>
   </tr> 
   <tr>
     <td><b>SSN</b></td><td><%= data.ssn %></td>
@@ -27,9 +27,15 @@
   <tr>
     <td><b>Salary (year)</b></td><td>$<%= data.salary %></td>    
   </tr>
+  <tr>
+    <td><b>Vacation allotted</b></td><td><%= data.vacayallot %> days per year</td>    
+  </tr>
+  <tr>
+    <td><b>Vacation used</b></td><td><%= data.vacayused %> day(s)</td>    
+  </tr>
 </table>
 
-<p><a href="/employees/<%= data._id %>/edit">Edit</a> | Delete</p>
+<p><a href="/employees">Return to main records</a> | <a href="/employees/<%= data._id %>/edit">Edit this record</a> | <a onclick="document.querySelector('.confirm-delete').classList.remove('confirm-delete')">Delete this record</a></p>
 
 <form action="/employees/<%= data._id %>?_method=DELETE" method="POST" class="confirm-delete">
 	<button class="btn btn-danger">Delete - Yes, I'm sure</button>

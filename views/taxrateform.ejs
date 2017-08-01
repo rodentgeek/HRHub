@@ -1,0 +1,36 @@
+<% include partials/header %>
+
+<h1>Edit tax rates</h1>
+
+<form id="theTaxForm" action="/payroll_tax" method="POST">
+
+  <table class="table table-striped taxtable">
+  
+    <%
+      taxes.forEach(function(val){
+        var label = val.type;
+        if(val.type == "FD") label = "Federal";
+        if(val.type == "SS") label = "Social Security";
+        if(val.type == "MR") label = "Medicare";
+    %>    
+        
+      <tr>
+        <td><%= label %></td>
+        <td><input type="number" name="formfields[<%= val.type %>]" value="<%= val.rate %>" /> %</td>
+      </tr>
+      
+    <%    
+      });
+    %>
+  
+  </table>
+
+  <input type="button" value="Submit" id="submitbutton" />
+
+</form>
+
+<p> </p>
+
+<% include partials/footer %>
+
+<script type="text/javascript" src="/scripts/formvalidate_tax.js"></script>
